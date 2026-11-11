@@ -12,4 +12,7 @@ import { join } from 'node:path';
 
 const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 const text = readFileSync(new URL('./summary.txt', import.meta.url), 'utf8');
+if (text.length < 1 || text.length > 2000) {
+  throw new Error(`summary.txt must be 1-2000 characters, got ${text.length}`);
+}
 writeFileSync(join(out, 'entry.txt'), text);
